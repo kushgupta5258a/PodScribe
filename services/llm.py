@@ -21,7 +21,7 @@ def call_llm(messages):
     }
 
     payload = {
-        "model": "mistralai/mistral-7b-instruct",
+        "model": "openai/gpt-3.5-turbo",
         "messages": messages,
         "temperature": 0.3
     }

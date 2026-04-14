@@ -1,5 +1,6 @@
-myvenv/
-__pycache__/
+myenv/
 .env
-*.wav
+__pycache__/
+*.pyc
 data/
+.DS_Store
