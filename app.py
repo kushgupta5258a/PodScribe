@@ -1,9 +1,34 @@
 import streamlit as st
+import requests
 
-from services.audio import save_uploaded_file, download_youtube_audio
+from services.audio import save_uploaded_file
 from services.deepgram_service import transcribe_audio
 from services.llm import translate_text, generate_summary, chat_with_transcript
 from services.embeddings import create_vector_store
+
+
+# =========================
+# BACKEND CONFIG
+# =========================
+BACKEND_URL = "http://127.0.0.1:8000"  # change after deployment
+
+
+def download_from_backend(url):
+    response = requests.post(
+        f"{BACKEND_URL}/download",
+        params={"url": url},
+        timeout=120
+    )
+
+    if response.status_code != 200:
+        raise Exception("Download failed")
+
+    # SAVE FILE LOCALLY
+    file_path = "temp_audio.mp3"
+    with open(file_path, "wb") as f:
+        f.write(response.content)
+
+    return file_path
 
 
 # =========================
@@ -62,9 +87,10 @@ with tab1:
 
         elif url:
             try:
-                file_path = download_youtube_audio(url)
+                with st.spinner("Downloading from YouTube via backend..."):
+                    file_path = download_from_backend(url)
             except Exception as e:
-                st.error(f"YouTube download failed:\n{e}")
+                st.error(f"YouTube backend failed:\n{e}")
                 st.stop()
 
         else:
