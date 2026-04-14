@@ -10,7 +10,7 @@ from services.embeddings import create_vector_store
 # =========================
 # BACKEND CONFIG
 # =========================
-BACKEND_URL = "http://127.0.0.1:8000"  # change after deployment
+BACKEND_URL = "https://podscribe-saiv.onrender.com"
 
 
 def download_from_backend(url):
