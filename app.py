@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import requests
 
@@ -10,7 +11,7 @@ from services.embeddings import create_vector_store
 # =========================
 # BACKEND CONFIG
 # =========================
-BACKEND_URL = "https://podscribe-saiv.onrender.com"
+BACKEND_URL = os.getenv("BACKEND_URL", "https://podscribe-saiv.onrender.com")
 
 
 def download_from_backend(url):

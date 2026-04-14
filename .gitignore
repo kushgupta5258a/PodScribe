@@ -1,5 +1,7 @@
 data/
 myenv/
+backend/audio/
+temp_audio.mp3
 .env
 __pycache__/
 *.pyc

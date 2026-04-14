@@ -1,4 +1,8 @@
+import os
+
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+
 from downloader import download_audio
 
 app = FastAPI()
@@ -10,4 +14,8 @@ def home():
 @app.post("/download")
 def download(url: str):
     file_path = download_audio(url)
-    return {"file_path": file_path}
+    return FileResponse(
+        file_path,
+        media_type="audio/mpeg",
+        filename=os.path.basename(file_path)
+    )
